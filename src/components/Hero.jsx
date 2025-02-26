@@ -122,8 +122,17 @@
 import React, { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { FiUser } from "react-icons/fi"; // Importing user icon from react-icons
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Hero = () => {
+const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(!localStorage.getItem("auth-token")){
+      navigate("/login")
+      }
+  },[localStorage])
   const [department, setDepartment] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [userName, setUserName] = useState(""); // State to hold the user's name from the database
@@ -143,14 +152,28 @@ const Hero = () => {
   // Simulate fetching user data from a database (replace with actual API call)
   useEffect(() => {
     const fetchUserData = async () => {
-      try {
-        const response = await fetch("/api/user"); // Example endpoint
-        const data = await response.json();
-        setUserName(data.name); // Assume API returns an object with a 'name' field
-      } catch (error) {
-        console.error("Failed to fetch user data:", error);
-        setUserName("Guest"); // Fallback if fetch fails
-      }
+    
+      let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: 'http://localhost:8000/api/v1/loginRoutes/student/profile',
+        headers: { 
+          'auth-token': localStorage.getItem("auth-token"), 
+          'Content-Type': 'application/json'
+        },
+     
+      };
+      
+      axios.request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        setUserName(response.data.student.firstName)
+      
+  
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     };
 
     fetchUserData();
@@ -168,7 +191,7 @@ const Hero = () => {
             {userName || "Loading..."}
           </span>
         </div>
-        <button className="px-4 py-2 bg-red-500 text-white rounded-2xl hover:bg-red-600 transition">
+        <button onClick={()=>{localStorage.removeItem("auth-token"); navigate("/login")}} className="px-4 py-2 bg-red-500 text-white rounded-2xl hover:bg-red-600 transition">
           Logout
         </button>
       </header>

@@ -45,6 +45,9 @@ export default function Signup() {
       navigate("/")
     })
     .catch((error) => {
+      if(error.response.data.message=="user already exists"){
+        alert("user alrady exists")
+      }
       console.log(error);
     });
     console.log(formData);

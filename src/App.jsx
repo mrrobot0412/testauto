@@ -57,7 +57,10 @@ import Hero from "./components/hero";
 
 export default function App() {
   return (
-    <div className="App">
+  //   <div className="App">
+  //   <Hero />
+  // </div>
+  <div>
     <Hero />
   </div>
     
