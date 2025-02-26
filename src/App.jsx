@@ -59,7 +59,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         {/* Directly render Signup component at root path */}
-        <Route path="/" element={<Sign />} />
+        <Route path="" element={<div >gvhjcc</div>} />
         <Route path="/signup" element={<Sign />} />
         <Route path="/login" element={<Login />} />
       </Routes>

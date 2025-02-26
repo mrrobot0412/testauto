@@ -1,13 +1,41 @@
 import React, { useState } from "react";
+import axios from "axios"
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+    const navigate = useNavigate();
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({ email, password, rememberMe });
+    let data = JSON.stringify({
+      "email": email,
+      "password": password
+    });
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'http://localhost:8000/api/v1/loginRoutes/login',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+    
+    axios.request(config)
+    .then((response) => {
+      console.log(JSON.stringify(response.data));
+      navigate("/")
+
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   };
 
   return (
