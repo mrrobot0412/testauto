@@ -53,17 +53,22 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signup from "./components/Sign";
 import Login from "./components/Login";
+import Hero from "./components/hero";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Directly render Signup component at root path */}
-        <Route path="/" element={<Sign />} />
-        <Route path="/signup" element={<Sign />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </BrowserRouter>
+    <div className="App">
+    <Hero />
+  </div>
+    
+    // <BrowserRouter>
+    //   <Routes>
+    //     {/* Directly render Signup component at root path */}
+    //     <Route path="/dash" element={<Hero />} />
+    //     <Route path="/signup" element={<Sign />} />
+    //     <Route path="/login" element={<Login />} />
+    //   </Routes>
+    // </BrowserRouter>
   );
 }
 
