@@ -202,7 +202,7 @@ const navigate = useNavigate()
 
         {/* Department Dropdown */}
         <div className="relative inline-block text-left mt-2">
-          <button
+          <button  id="department-dropdown"
             className="inline-flex justify-between items-center w-60 px-4 py-3 bg-blue-600 text-white rounded-2xl hover:bg-blue-700 transition"
             onClick={() => setDropdownOpen(!dropdownOpen)}
           >
@@ -210,7 +210,7 @@ const navigate = useNavigate()
           </button>
 
           {dropdownOpen && (
-            <div className="mt-2 absolute w-60 bg-white rounded-lg shadow-lg z-10">
+            <div   className="mt-2 absolute w-60 bg-white rounded-lg shadow-lg z-10">
               {departments.map((dept) => (
                 <button
                   key={dept}

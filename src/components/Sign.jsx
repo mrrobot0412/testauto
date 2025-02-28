@@ -42,7 +42,7 @@ export default function Signup() {
     axios.request(config)
     .then((response) => {
       console.log(JSON.stringify(response.data));
-      navigate("/")
+      navigate("/login")
     })
     .catch((error) => {
       if(error.response.data.message=="user already exists"){
