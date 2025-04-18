@@ -132,7 +132,7 @@ const Hero = () => {
 
   const csedProfessors = [
     { name: "Dr. Shalini Batra", email: "shalini.batra@thapar.edu", cabin: "C101" },
-    { name: "Prof. Sangeeta", email: "sangeeta@thapar.edu", cabin: "C102" },
+    { name: "Dr. Shalini Gupta", email: "sangeeta@thapar.edu", cabin: "C102" },
     { name: "Dr. Rana", email: "rana@thapar.edu", cabin: "C103" },
     { name: "Dr. Vibha Jain", email: "vibha.jain@thapar.edu", cabin: "C104" },
     { name: "Prof. Amit Kumar", email: "amit.kumar@thapar.edu", cabin: "C105" },

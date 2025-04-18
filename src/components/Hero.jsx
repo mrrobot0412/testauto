@@ -1,270 +1,6 @@
-
-
-// import React, { useState, useEffect } from "react";
-// import { ChevronDown } from "lucide-react";
-// import { FiUser } from "react-icons/fi"; // Importing user icon from react-icons
-
-// const Hero = () => {
-//   const [department, setDepartment] = useState("");
-//   const [dropdownOpen, setDropdownOpen] = useState(false);
-//   const [userName, setUserName] = useState(""); // State to hold the user's name from the database
-//   const departments = ["CSED", "ECED", "MECHANICAL"];
-
-//   // Sample professor data for CSED (Replace with real data or API call later)
-//   const csedProfessors = [
-//     { name: "Dr. Shalini Batra", email: "@thapar.edu", cabin: "C101" },
-//     { name: "Prof sangeeta", email: "@thapar.edu", cabin: "C102" },
-//     { name: "Dr rana", email: "@thapar.edu", cabin: "C103" },
-//     { name: "Dr vibha jain", email: "@thapar.edu", cabin: "C104" },
-  
-//   ];
-
-//   // Simulate fetching user data from a database (replace with actual API call)
-//   useEffect(() => {
-//     const fetchUserData = async () => {
-//       try {
-//         // Replace this with your API call to fetch user data
-//         const response = await fetch("/api/user"); // Example endpoint
-//         const data = await response.json();
-//         setUserName(data.name); // Assume API returns an object with a 'name' field
-//       } catch (error) {
-//         console.error("Failed to fetch user data:", error);
-//         setUserName("Guest"); // Fallback if fetch fails
-//       }
-//     };
-
-//     fetchUserData();
-//   }, []);
-
-//   return (
-//     <section className="w-full h-screen bg-gray-100 flex flex-col">
-//       {/* Top Bar */}
-//       <header className="w-full flex justify-between items-center px-8 py-4 bg-white shadow-md">
-//         <div className="flex items-center gap-4">
-//           <div className="w-12 h-12 flex items-center justify-center bg-gray-200 rounded-full">
-//             <FiUser className="w-6 h-6 text-gray-600" />
-//           </div>
-//           <span className="text-lg font-semibold text-gray-800">
-//             {userName || "Loading..."}
-//           </span>
-//         </div>
-//         <button className="px-4 py-2 bg-red-500 text-white rounded-2xl hover:bg-red-600 transition">
-//           Logout
-//         </button>
-//       </header>
-
-//       {/* Main Content */}
-//       <main className="flex-grow flex flex-col justify-start items-center px-4 pt-8">
-//         <h1 className="text-4xl font-bold text-gray-800 mb-6">Student Dashboard</h1>
-
-//         {/* Department Dropdown */}
-//         <div className="relative inline-block text-left mt-2">
-//           <button 
-//             className="inline-flex justify-between items-center w-60 px-4 py-3 bg-blue-600 text-white rounded-2xl hover:bg-blue-700 transition"
-//             onClick={() => setDropdownOpen(!dropdownOpen)}
-//           >
-//             {department ? department : "Select Department"} <ChevronDown className="ml-2" />
-//           </button>
-
-//           {dropdownOpen && (
-//             <div className="mt-2 absolute w-60 bg-white rounded-lg shadow-lg z-10">
-//               {departments.map((dept) => (
-//                 <button 
-//                   key={dept} 
-//                   onClick={() => {
-//                     setDepartment(dept);
-//                     setDropdownOpen(false);
-//                   }}
-//                   className={`w-full text-left px-4 py-2 hover:bg-gray-100 ${
-//                     department === dept ? "font-semibold text-blue-600" : "text-gray-800"
-//                   }`}
-//                 >
-//                   {dept}
-//                 </button>
-//               ))}
-//             </div>
-//           )}
-//         </div>
-
-//         {/* Department Content */}
-//         {department && (
-//           <div className="mt-10 w-full max-w-5xl bg-white rounded-2xl shadow-lg p-6">
-//             <h2 className="text-2xl font-semibold text-gray-800 mb-4">{department} Department</h2>
-
-//             {department === "CSED" && (
-//               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-//                 {csedProfessors.map((prof, index) => (
-//                   <div 
-//                     key={index} 
-//                     className="border rounded-2xl p-4 shadow-md bg-gray-50 hover:bg-gray-100 transition"
-//                   >
-//                     <h3 className="text-lg font-semibold text-gray-700">{prof.name}</h3>
-//                     <p className="text-sm text-gray-600">Email: <a href={`mailto:${prof.email}`} className="text-blue-600 hover:underline">{prof.email}</a></p>
-//                     <p className="text-sm text-gray-600">Cabin: {prof.cabin}</p>
-//                   </div>
-//                 ))}
-//               </div>
-//             )}
-
-//             {department !== "CSED" && (
-//               <p className="text-gray-600 text-center">Content for the {department} department will be displayed here.</p>
-//             )}
-//           </div>
-//         )}
-//       </main>
-//     </section>
-//   );
-// };
-
-// export default Hero;
-
-
-// import React, { useState, useEffect } from "react";
-// import { ChevronDown } from "lucide-react";
-// import { FiUser } from "react-icons/fi"; // Importing user icon from react-icons
-// import { useNavigate } from "react-router-dom";
-// import axios from "axios";
-
-// const Hero = () => {
-// const navigate = useNavigate()
-
-//   // useEffect(()=>{
-//   //   if(!localStorage.getItem("auth-token")){
-//   //     navigate("/login")
-//   //     }
-//   // },[localStorage])
-//   const [department, setDepartment] = useState("");
-//   const [dropdownOpen, setDropdownOpen] = useState(false);
-//   const [userName, setUserName] = useState(""); // State to hold the user's name from the database
-//   const departments = ["CSED", "ECED", "MECHANICAL"];
-
-//   // Sample professor data for CSED (Replace with real data or API call later)
-//   const csedProfessors = [
-//     { name: "Dr. Shalini Batra", email: "shalini.batra@thapar.edu", cabin: "C101" },
-//     { name: "Prof. Sangeeta", email: "sangeeta@thapar.edu", cabin: "C102" },
-//     { name: "Dr. Rana", email: "rana@thapar.edu", cabin: "C103" },
-//     { name: "Dr. Vibha Jain", email: "vibha.jain@thapar.edu", cabin: "C104" },
-//     { name: "Prof. Amit Kumar", email: "amit.kumar@thapar.edu", cabin: "C105" },
-//     { name: "Dr. Neha Verma", email: "neha.verma@thapar.edu", cabin: "C106" },
-//     { name: "Prof. Rajeev Sharma", email: "rajeev.sharma@thapar.edu", cabin: "C107" },
-//   ];
-
-//   // Simulate fetching user data from a database (replace with actual API call)
-//   useEffect(() => {
-//     const fetchUserData = async () => {
-    
-//       let config = {
-//         method: 'get',
-//         maxBodyLength: Infinity,
-//         url: 'http://localhost:8000/api/v1/loginRoutes/student/profile',
-//         headers: { 
-//           'auth-token': localStorage.getItem("auth-token"), 
-//           'Content-Type': 'application/json'
-//         },
-     
-//       };
-      
-//       axios.request(config)
-//       .then((response) => {
-//         console.log(JSON.stringify(response.data));
-//         setUserName(response.data.student.firstName)
-      
-  
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//     };
-
-//     fetchUserData();
-//   }, []);
-
-//   return (
-//     <section className="w-full min-h-screen bg-gray-100 flex flex-col">
-//       {/* Top Bar */}
-//       <header className="w-full flex justify-between items-center px-8 py-4 bg-white shadow-md">
-//         <div className="flex items-center gap-4">
-//           <div className="w-12 h-12 flex items-center justify-center bg-gray-200 rounded-full">
-//             <FiUser className="w-6 h-6 text-gray-600" />
-//           </div>
-//           <span className="text-lg font-semibold text-gray-800">
-//             {userName || "Loading..."}
-//           </span>
-//         </div>
-//         <button onClick={()=>{localStorage.removeItem("auth-token"); navigate("/login")}} className="px-4 py-2 bg-red-500 text-white rounded-2xl hover:bg-red-600 transition">
-//           Logout
-//         </button>
-//       </header>
-
-//       {/* Main Content */}
-//       <main className="flex-grow flex flex-col justify-start items-center px-4 pt-8 w-full">
-//         <h1 className="text-4xl font-bold text-gray-800 mb-4">Student Dashboard</h1>
-
-//         {/* Department Dropdown */}
-//         <div className="relative inline-block text-left mt-2">
-//           <button
-//             className="inline-flex justify-between items-center w-60 px-4 py-3 bg-blue-600 text-white rounded-2xl hover:bg-blue-700 transition"
-//             onClick={() => setDropdownOpen(!dropdownOpen)}
-//           >
-//             {department || "Select Department"} <ChevronDown className="ml-2" />
-//           </button>
-
-//           {dropdownOpen && (
-//             <div className="mt-2 absolute w-60 bg-white rounded-lg shadow-lg z-10">
-//               {departments.map((dept) => (
-//                 <button
-//                   key={dept}
-//                   onClick={() => {
-//                     setDepartment(dept);
-//                     setDropdownOpen(false);
-//                   }}
-//                   className={`w-full text-left px-4 py-2 hover:bg-gray-100 ${
-//                     department === dept ? "font-semibold text-blue-600" : "text-gray-800"
-//                   }`}
-//                 >
-//                   {dept}
-//                 </button>
-//               ))}
-//             </div>
-//           )}
-//         </div>
-
-//         {/* Department Content */}
-//         {department && (
-//           <div className="mt-8 w-full max-w-6xl bg-white rounded-2xl shadow-lg p-6">
-//             <h2 className="text-2xl font-semibold text-gray-800 mb-6">{department} Department</h2>
-
-//             {department === "CSED" && (
-//               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-//                 {csedProfessors.map((prof, index) => (
-//                   <div
-//                     key={index}
-//                     className="border rounded-2xl p-4 shadow-md bg-gray-50 hover:bg-gray-100 transition"
-//                   >
-//                     <h3 className="text-lg font-semibold text-gray-700">{prof.name}</h3>
-//                     <p className="text-sm text-gray-600">
-//                       Email: <a href={`mailto:${prof.email}`} className="text-blue-600 hover:underline">{prof.email}</a>
-//                     </p>
-//                     <p className="text-sm text-gray-600">Cabin: {prof.cabin}</p>
-//                   </div>
-//                 ))}
-//               </div>
-//             )}
-
-//             {department !== "CSED" && (
-//               <div className="py-8 text-center text-gray-500">{/* Blank content for now */}</div>
-//             )}
-//           </div>
-//         )}
-//       </main>
-//     </section>
-//   );
-// };
-
-// export default Hero;
 import React, { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
-import { FiUser } from "react-icons/fi"; 
+import { FiUser } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -272,34 +8,41 @@ const Hero = () => {
   const navigate = useNavigate();
   const [department, setDepartment] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [userName, setUserName] = useState(""); 
-
+  const [userName, setUserName] = useState("");
+  const [teachers, setTeachers] = useState([]);
+  const [loading, setLoading] = useState(false);
   const departments = ["CSED", "ECED", "MECHANICAL"];
 
-  const csedProfessors = [
-    { name: "Dr. Shalini Batra", email: "shalini.batra@thapar.edu", cabin: "C101" },
-    { name: "Prof. Sangeeta", email: "sangeeta@thapar.edu", cabin: "C102" },
-    { name: "Dr. Rana", email: "rana@thapar.edu", cabin: "C103" },
-    { name: "Dr. Vibha Jain", email: "vibha.jain@thapar.edu", cabin: "C104" },
-    { name: "Prof. Amit Kumar", email: "amit.kumar@thapar.edu", cabin: "C105" },
-  ];
+  // Function to fetch teachers from backend
+  const fetchTeachers = async () => {
+    try {
+      setLoading(true);
+      const myHeaders = new Headers();
+      myHeaders.append("username", "amank@gmail.com");
+      myHeaders.append("password", "123");
+      myHeaders.append("Authorization", localStorage.getItem("auth-token"));
+      myHeaders.append("Content-Type", "application/json");
 
-  const ecedProfessors = [
-    { name: "Dr. Anil Gupta", email: "anil.gupta@thapar.edu", cabin: "E201" },
-    { name: "Dr. Pooja Mehta", email: "pooja.mehta@thapar.edu", cabin: "E202" },
-    { name: "Prof. Ramesh Singh", email: "ramesh.singh@thapar.edu", cabin: "E203" },
-    { name: "Dr. Nisha Arora", email: "nisha.arora@thapar.edu", cabin: "E204" },
-    { name: "Prof. Karan Malhotra", email: "karan.malhotra@thapar.edu", cabin: "E205" },
-  ];
+      const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow"
+      };
 
-  const mechanicalProfessors = [
-    { name: "Dr. Sanjay Kapoor", email: "sanjay.kapoor@thapar.edu", cabin: "M301" },
-    { name: "Dr. Meenakshi Rathi", email: "meenakshi.rathi@thapar.edu", cabin: "M302" },
-    { name: "Prof. Harish Bansal", email: "harish.bansal@thapar.edu", cabin: "M303" },
-    { name: "Dr. Rajesh Kumar", email: "rajesh.kumar@thapar.edu", cabin: "M304" },
-    { name: "Prof. Neeraj Sharma", email: "neeraj.sharma@thapar.edu", cabin: "M305" },
-  ];
+      const response = await fetch(`http://localhost:8000/api/v1/teachersRoutes/getTeachers?department=${department}`, requestOptions);
+      const result = await response.json();
+      
+      if (result && result.teachers) {
+        setTeachers(result.teachers);
+      }
+    } catch (error) {
+      console.error("Error fetching teachers:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  // Fetch user profile data
   useEffect(() => {
     const fetchUserData = async () => {
       let config = {
@@ -325,6 +68,13 @@ const Hero = () => {
 
     fetchUserData();
   }, []);
+
+  // Fetch teachers when department changes
+  useEffect(() => {
+    if (department) {
+      fetchTeachers();
+    }
+  }, [department]);
 
   return (
     <section className="w-full min-h-screen bg-gray-100 flex flex-col">
@@ -352,7 +102,7 @@ const Hero = () => {
         <h1 className="text-4xl font-bold text-gray-800 mb-4">Student Dashboard</h1>
 
         <div className="relative inline-block text-left mt-2">
-          <button  id="department-dropdown"
+          <button
             className="inline-flex justify-between items-center w-60 px-4 py-3 bg-blue-600 text-white rounded-2xl hover:bg-blue-700 transition"
             onClick={() => setDropdownOpen(!dropdownOpen)}
           >
@@ -360,7 +110,7 @@ const Hero = () => {
           </button>
 
           {dropdownOpen && (
-            <div   className="mt-2 absolute w-60 bg-white rounded-lg shadow-lg z-10">
+            <div className="mt-2 absolute w-60 bg-white rounded-lg shadow-lg z-10">
               {departments.map((dept) => (
                 <button
                   key={dept}
@@ -383,26 +133,31 @@ const Hero = () => {
           <div className="mt-8 w-full max-w-6xl bg-white rounded-2xl shadow-lg p-6">
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">{department} Department</h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {(department === "CSED" ? csedProfessors :
-                department === "ECED" ? ecedProfessors :
-                mechanicalProfessors
-              ).map((prof, index) => (
-                <div
-                  key={index}
-                  className="border rounded-2xl p-4 shadow-md bg-gray-50 hover:bg-gray-100 transition"
-                >
-                  <h3 className="text-lg font-semibold text-gray-700">{prof.name}</h3>
-                  <p className="text-sm text-gray-600">
-                    Email:{" "}
-                    <a href={`mailto:${prof.email}`} className="text-blue-600 hover:underline">
-                      {prof.email}
-                    </a>
-                  </p>
-                  <p className="text-sm text-gray-600">Cabin: {prof.cabin}</p>
-                </div>
-              ))}
-            </div>
+            {loading ? (
+              <div className="text-center py-8">
+                <p>Loading teachers...</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {teachers.map((teacher, index) => (
+                  <div
+                    key={index}
+                    className="border rounded-2xl p-4 shadow-md bg-gray-50 hover:bg-gray-100 transition"
+                  >
+                    <h3 className="text-lg font-semibold text-gray-700">
+                      {teacher.firstName} {teacher.lastName}
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      Email:{" "}
+                      <a href={`mailto:${teacher.email}`} className="text-blue-600 hover:underline">
+                        {teacher.email}
+                      </a>
+                    </p>
+                    <p className="text-sm text-gray-600">Cabin: {teacher.roomNumber}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </main>
