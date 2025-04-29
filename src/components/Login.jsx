@@ -18,16 +18,18 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [userType, setUserType] = useState("student");
   
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(email)
     console.log(password)
-    console.log({ email, password, rememberMe });
+    console.log({ email, password, rememberMe, userType });
     let data = JSON.stringify({
       "email": email,
-      "password": password
+      "password": password,
+      "userType": userType
     });
     let config = {
       method: 'post',
@@ -58,6 +60,28 @@ export default function Login() {
     <div className="flex items-center justify-center h-screen">
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded-2xl shadow-lg w-96 space-y-4">
         <h2 className="text-2xl font-semibold text-center">Login</h2>
+        <div className="mb-4">
+          <label className="mr-4">
+            <input
+              type="radio"
+              value="student"
+              checked={userType === "student"}
+              onChange={() => setUserType("student")}
+              className="mr-1"
+            />
+            Student
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="teacher"
+              checked={userType === "teacher"}
+              onChange={() => setUserType("teacher")}
+              className="mr-1"
+            />
+            Teacher
+          </label>
+        </div>
         <input
           type="email"
           placeholder="Email ID"

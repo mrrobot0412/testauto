@@ -24,7 +24,8 @@ import App from "./App";
 import Login from "./components/Login";
 import Sign from "./components/Sign";
 import "./index.css";
-
+import DashTeacher from "./components/DashTeacher"
+ 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     {/* <App></App> */}
@@ -33,6 +34,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/" element={<App />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Sign />} />
+        <Route path="/teacher_dashboard" element={<DashTeacher/>}/>
       </Routes>
     </Router>
   </React.StrictMode>

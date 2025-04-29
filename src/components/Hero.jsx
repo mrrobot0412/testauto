@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Search } from "lucide-react";
 import { FiUser } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -11,6 +11,7 @@ const Hero = () => {
   const [userName, setUserName] = useState("");
   const [teachers, setTeachers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const departments = ["CSED", "ECED", "MECHANICAL"];
 
   // Function to fetch teachers from backend
@@ -23,13 +24,16 @@ const Hero = () => {
       myHeaders.append("Authorization", localStorage.getItem("auth-token"));
       myHeaders.append("Content-Type", "application/json");
 
+      // Pass searchQuery to backend
+      const url = `http://localhost:8000/api/v1/teachersRoutes/getTeachers?department=${department}&search=${encodeURIComponent(searchQuery)}`;
+
       const requestOptions = {
         method: "GET",
         headers: myHeaders,
         redirect: "follow"
       };
 
-      const response = await fetch(`http://localhost:8000/api/v1/teachersRoutes/getTeachers?department=${department}`, requestOptions);
+      const response = await fetch(url, requestOptions);
       const result = await response.json();
       
       if (result && result.teachers) {
@@ -74,7 +78,16 @@ const Hero = () => {
     if (department) {
       fetchTeachers();
     }
-  }, [department]);
+    // eslint-disable-next-line
+  }, [department, searchQuery]);
+
+  const getFilteredTeachers = () => {
+    if (!searchQuery) return teachers;
+    
+    return teachers.filter(teacher => 
+      `${teacher.firstName} ${teacher.lastName}`.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  };
 
   return (
     <section className="w-full min-h-screen bg-gray-100 flex flex-col">
@@ -131,7 +144,19 @@ const Hero = () => {
 
         {department && (
           <div className="mt-8 w-full max-w-6xl bg-white rounded-2xl shadow-lg p-6">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6">{department} Department</h2>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-semibold text-gray-800">{department} Department</h2>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search teachers..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-64 px-4 py-2 pl-10 pr-4 rounded-2xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+              </div>
+            </div>
 
             {loading ? (
               <div className="text-center py-8">

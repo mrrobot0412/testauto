@@ -53,8 +53,8 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signup from "./components/Sign";
 import Login from "./components/Login";
-import Hero from "./components/hero";
-
+import Hero from "./components/Hero";
+import DashTeacher from "./components/DashTeacher";
 export default function App() {
   return (
   //   <div className="App">
