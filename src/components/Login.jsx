@@ -18,55 +18,61 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const [userType, setUserType] = useState("student");
-  
+  const [userType, setUserType] = useState("studentLogin");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email)
-    console.log(password)
+    console.log(email);
+    console.log(password);
     console.log({ email, password, rememberMe, userType });
     let data = JSON.stringify({
-      "email": email,
-      "password": password,
-      "userType": userType
+      email: email,
+      password: password,
+      userType: userType,
     });
     let config = {
-      method: 'post',
+      method: "post",
       maxBodyLength: Infinity,
-      url: 'http://localhost:8000/api/v1/loginRoutes/studentLogin',
-      headers: { 
-        'Content-Type': 'application/json'
+      url: `http://localhost:8000/api/v1/loginRoutes/${userType}`,
+      headers: {
+        "Content-Type": "application/json",
       },
-      data : data
+      data: data,
     };
-    
-    axios.request(config)
-    .then((response) => {
-      console.log(JSON.stringify(response.data));
-      localStorage.setItem("auth-token", response.data.token)
-      navigate("/")
 
-    })
-    .catch((error) => {
-      if(error.response.data.message=="Invalid credentials"){
-        alert("Invalid credentials")
-      }
-      console.log(error);
-    });
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        localStorage.setItem("auth-token", response.data.token);
+        if (userType == "studentLogin") {
+          navigate("/");
+        } else {
+          navigate("/teacher_dashboard");
+        }
+      })
+      .catch((error) => {
+        if (error.response.data.message == "Invalid credentials") {
+          alert("Invalid credentials");
+        }
+        console.log(error);
+      });
   };
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-2xl shadow-lg w-96 space-y-4">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-8 rounded-2xl shadow-lg w-96 space-y-4"
+      >
         <h2 className="text-2xl font-semibold text-center">Login</h2>
         <div className="mb-4">
           <label className="mr-4">
             <input
               type="radio"
               value="student"
-              checked={userType === "student"}
-              onChange={() => setUserType("student")}
+              checked={userType === "studentLogin"}
+              onChange={() => setUserType("studentLogin")}
               className="mr-1"
             />
             Student
@@ -75,8 +81,8 @@ export default function Login() {
             <input
               type="radio"
               value="teacher"
-              checked={userType === "teacher"}
-              onChange={() => setUserType("teacher")}
+              checked={userType === "teacherLogin"}
+              onChange={() => setUserType("teacherLogin")}
               className="mr-1"
             />
             Teacher
@@ -99,12 +105,14 @@ export default function Login() {
           required
         />
         <div className="flex items-center justify-between">
-        <p className="text-center text-sm">
-          Create account?{' '}
-          <Link to="/signup" className="text-light-green-500 hover:underline">Register</Link>
-        </p>
+          <p className="text-center text-sm">
+            Create account?{" "}
+            <Link to="/signup" className="text-light-green-500 hover:underline">
+              Register
+            </Link>
+          </p>
           {/* <label className="flex items-center"> */}
-            {/* <input
+          {/* <input
               type="checkbox"
               checked={rememberMe}
               onChange={() => setRememberMe(!rememberMe)}
@@ -112,9 +120,19 @@ export default function Login() {
             />
             Remember me
           </label> */}
-          <button type="button" className="text-blue-500 text-sm hover:underline">Forgot password?</button>
+          <button
+            type="button"
+            className="text-blue-500 text-sm hover:underline"
+          >
+            Forgot password?
+          </button>
         </div>
-        <button type="submit" className="w-full bg-green-500 text-white py-2 rounded-lg">Login</button>
+        <button
+          type="submit"
+          className="w-full bg-green-500 text-white py-2 rounded-lg"
+        >
+          Login
+        </button>
       </form>
     </div>
   );
