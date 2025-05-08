@@ -52,10 +52,14 @@ export default function Login() {
         }
       })
       .catch((error) => {
-        if (error.response.data.message == "Invalid credentials") {
+        if (error.response.data.message == "User not found") {
+          alert("USER NOT FOUND");
+        }
+
+        if (error.response.request.status == 400) {
           alert("Invalid credentials");
         }
-        console.log(error);
+        console.log(error.response);
       });
   };
 
